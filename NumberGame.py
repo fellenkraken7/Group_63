@@ -140,6 +140,18 @@ def generate_moves(start_symbols, points, player):
                 moves.append(move)
     return moves
 
+# Heuristic function calculation
+def calculate_heuristic(symbols, score):
+    ai_combinations = 0;
+    hu_combinations = 0;
+    for i in range(len(symbols) - 1):
+        if symbols[i:i+2] == ["X", "X"] or symbols[i:i+2] == ["X", "O"]:
+            ai_combinations += 1
+        elif symbols[i:i+2] == ["O", "O"] or symbols[i:i+2] == ["O", "X"]:
+            hu_combinations += 1
+
+    return score[0]-score[1] - hu_combinations * 1 + ai_combinations * 1
+
 # Recursive function to build the game tree
 def build_game_tree(node, player, depth):
     if depth == 0:
